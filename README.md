@@ -77,16 +77,41 @@ claude mcp add mobbin -- npx -y mobbin-mcp
 ```
 Docs: https://docs.mobbin.com/mcp/clients/claude-code
 
-**Agentation** (annotate a page, Claude acts on your notes):
-Go to https://www.agentation.com/mcp and run their installer. It detects Claude
-Code and sets the MCP up for you, no manual command needed.
-
 Handy: `claude mcp list` shows what is connected. `/mcp` inside Claude manages,
 authenticates, and reconnects them.
 
+(Agentation gets its own step below, it is the important one.)
+
 ---
 
-## Part 4: Install the skills
+## Part 4: Set up Agentation (the feedback tool, the important one)
+
+Agentation gets its own step because it is the heart of the workflow. Feedback is
+the real design skill, and Agentation turns your feedback into action: you
+annotate a page or design right in your browser, and Claude reads those notes and
+applies the changes. No more long messages describing what to fix.
+
+Set it up:
+1. Go to https://www.agentation.com/mcp.
+2. Run the installer command shown on that page. It auto-detects Claude Code and
+   connects the MCP for you, no manual `claude mcp add` needed.
+3. Install the Agentation browser toolbar (the page links it) so you can mark up
+   pages.
+4. Restart Claude Code so it picks up the connection, then run `/mcp` to confirm
+   Agentation shows as connected.
+
+How you use it:
+- Open the page or design in your browser and turn on the Agentation toolbar.
+- Click and comment directly on what you want changed ("CTA too quiet", "tighten
+  this gap", "make this heading bigger").
+- Tell Claude to read the annotations and apply them. Your visual feedback
+  becomes real edits.
+
+This is the loop that makes everything else fast. Get this one working.
+
+---
+
+## Part 5: Install the skills
 
 Skills are the design workflows you invoke with a slash command like
 `/impeccable`. They come from plugins. Install the ones from the session:
@@ -120,7 +145,8 @@ by dropping a `SKILL.md` file in `.claude/skills/<name>/` inside a project.
 
 - [ ] `claude` runs (terminal) or the app opens, and you are signed in.
 - [ ] You are on a paid plan (Pro is fine).
-- [ ] Figma / Mobbin / Agentation added (run `claude mcp list` to confirm).
+- [ ] Figma and Mobbin added (run `claude mcp list` to confirm).
+- [ ] Agentation connected and its browser toolbar installed.
 - [ ] You can type `/` and see the skills (impeccable, frontend-design, etc.).
 
 That is enough to follow along. The rest we connect together live.
