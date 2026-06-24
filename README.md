@@ -1,8 +1,8 @@
 # Setting up Claude for design, Mac & Windows
 
 A step-by-step setup for non-developers. By the end you will have Claude Code
-running and ready for the design workflow from Session 1. Follow the track for
-your computer.
+running, your design tools connected, and the design skills installed. Follow the
+track for your computer.
 
 التعليمات بالإنجليزي عشان الأوامر، بس كل خطوة مشروحة. لو علقت في أي خطوة، اسأل في
 `#ask-the-mentors`.
@@ -21,7 +21,7 @@ your computer.
 3. Wait for it to finish (a minute or two).
 4. Close and reopen Terminal, then type `claude` and press Enter.
 
-Prefer no terminal? Download the **desktop app** instead from
+Prefer no terminal? Download the **desktop app** from
 [claude.ai/download](https://claude.ai/download), or use the web at
 [claude.ai/code](https://claude.ai/code), nothing to install.
 
@@ -43,12 +43,12 @@ at [claude.ai/code](https://claude.ai/code).
 
 ## Part 2: Sign in and pick a plan
 
-1. The first time you run `claude` (or open the app), it asks you to sign in with
-   your Claude account. Sign in or create one.
+1. The first time you run `claude` (or open the app), sign in with your Claude
+   account.
 2. You need a paid plan for real use. **Pro (~$20/month) is enough to start.**
    Check current prices at [claude.com/pricing](https://claude.com/pricing).
-3. To confirm it works, open any folder and ask Claude something simple like
-   "list the files here." If it answers, you are set.
+3. To confirm it works, open any folder and ask Claude "list the files here." If
+   it answers, you are set.
 
 | Plan | Price | For |
 |---|---|---|
@@ -61,33 +61,58 @@ at [claude.ai/code](https://claude.ai/code).
 ## Part 3: Connect your design tools (MCP)
 
 MCP connects Claude to real tools so it reads live data instead of pasted
-screenshots. The three from the session are **Mobbin**, **Figma**, and the
-**annotation** tool.
+screenshots. Add each one with the terminal command below, or in the desktop/web
+app under **Settings → Connectors → Add custom connector** (easier, no terminal).
+After adding, run `/mcp` inside Claude to sign in and check status.
 
-**The general way to add one:**
-- In the **desktop or web app**: open **Settings → Connectors / MCP**, find the
-  tool, and follow its connect button. This is the easiest path.
-- In the **terminal**: `claude mcp add <name>` (for example `claude mcp add figma`).
+**Figma** (read designs, generate code, push back to Figma):
+```bash
+claude mcp add --transport http figma https://mcp.figma.com/mcp
+```
+Docs: https://help.figma.com/hc/en-us/articles/39888612464151-Claude-Code-and-Figma-Set-up-the-MCP-server
 
-Each tool has its own connect step (signing into Figma, Mobbin, etc.). Maher will
-walk through connecting these live in the session, so do not worry if a tool asks
-for its own login.
+**Mobbin** (real app screens as references). Needs a Mobbin account:
+```bash
+claude mcp add mobbin -- npx -y mobbin-mcp
+```
+Docs: https://docs.mobbin.com/mcp/clients/claude-code
+
+**Agentation** (annotate a page, Claude acts on your notes):
+Go to https://www.agentation.com/mcp and run their installer. It detects Claude
+Code and sets the MCP up for you, no manual command needed.
+
+Handy: `claude mcp list` shows what is connected. `/mcp` inside Claude manages,
+authenticates, and reconnects them.
 
 ---
 
-## Part 4: Get the skills
+## Part 4: Install the skills
 
 Skills are the design workflows you invoke with a slash command like
-`/impeccable` or `/frontend-design`.
+`/impeccable`. They come from plugins. Install the ones from the session:
 
-- Most skills come bundled in a **plugin** you install once. In the app, browse
-  the plugin marketplace and install the design plugin; or in the terminal use
-  the `/plugin` command.
-- You can also add a personal skill by dropping a `SKILL.md` file in a
-  `.claude/skills/<name>/` folder inside your project.
+```bash
+/plugin install frontend-design@claude-plugins-official
+/plugin install impeccable@claude-plugins-community
+/plugin install ui-ux-pro-max@claude-plugins-community
+/plugin install emil-design-eng@claude-plugins-community
+```
 
-Maher will share the exact plugin/skill list used in the session so you can
-install the same set. Once installed, type `/` to see them.
+If a command does not resolve, the reliable way is to run `/plugin`, open the
+**Discover** tab, search the name (for example "impeccable"), and click install.
+To add the community marketplace first if needed:
+```bash
+/plugin marketplace add anthropics/claude-plugins-community
+```
+
+Useful plugin commands:
+```bash
+/plugin            # open the plugin manager (Discover / Installed / Marketplaces)
+/plugin list       # list installed plugins
+```
+
+After installing, type `/` to see your skills. You can also add a personal skill
+by dropping a `SKILL.md` file in `.claude/skills/<name>/` inside a project.
 
 ---
 
@@ -95,7 +120,19 @@ install the same set. Once installed, type `/` to see them.
 
 - [ ] `claude` runs (terminal) or the app opens, and you are signed in.
 - [ ] You are on a paid plan (Pro is fine).
-- [ ] You know where Settings → Connectors / MCP is.
-- [ ] You can type `/` and see at least one skill.
+- [ ] Figma / Mobbin / Agentation added (run `claude mcp list` to confirm).
+- [ ] You can type `/` and see the skills (impeccable, frontend-design, etc.).
 
 That is enough to follow along. The rest we connect together live.
+
+---
+
+## Reference links
+
+- Claude Code overview: https://code.claude.com/docs/en/overview
+- Pricing: https://claude.com/pricing
+- MCP setup: https://code.claude.com/docs/en/mcp
+- Plugins: https://code.claude.com/docs/en/discover-plugins
+- Figma MCP: https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server
+- Mobbin MCP: https://mobbin.com/mcp
+- Agentation MCP: https://www.agentation.com/mcp
